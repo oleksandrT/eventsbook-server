@@ -6,11 +6,12 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 
-var routes = require('./routes/index');
-var users = require('./routes/users');
-var organizers = require('./routes/organizers');
+//var routes = require('./routes/index');
+//var users = require('./routes/users');
+
 var signup = require('./routes/signup');
 var login = require('./routes/login');
+var organizers = require('./routes/organizers');
 var events = require('./routes/events');
 
 var app = express();
@@ -20,14 +21,15 @@ var serverUrl = process.env.MONGODB_URI || 'localhost:27017/eventsbook';
 
 mongoose.connect(serverUrl, function (err, dbconn) {
   if(!err) {
-    console.log('We are connected');
+    console.log('Connected to Mongo Db');
     db = dbconn;
   }
 });
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'hbs');
+// app.set('views', path.join(__dirname, 'views'));
+// app.set('view engine', 'hbs');
+
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -43,11 +45,12 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.use('/', routes);
-app.use('/users', users);
-app.use('/organizers', organizers);
+//app.use('/', routes);
+//app.use('/users', users);
+
 app.use('/signup', signup);
 app.use('/login', login);
+app.use('/organizers', organizers);
 app.use('/events', events);
 
 // catch 404 and forward to error handler

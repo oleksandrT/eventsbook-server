@@ -5,12 +5,7 @@ var jwt = require('jsonwebtoken');
 
 var SECRET_WORD = 'wubuiproj';
 
-/* Render signup form. */
-router.get('/', function(req, res, next) {
-    res.render();
-});
-
-/* Save new user. */
+/* Find if there is such organizer in database and respond with token */
 router.post('/', function(req, res, next) {
     Organizer.findOne({login: req.body.username, password: req.body.password}, function (err, user) {
         if (err) { next(err); return; }
