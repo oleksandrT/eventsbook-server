@@ -25,13 +25,15 @@ router.get('/', function(req, res, next) {
 
 router.post('/', function(req, res, next) {
     console.log('post organizer route');
-    Organizer.findOne({login: req.body.username, password: req.body.password}, function (err, user) {
-        res.json({
-            access_token: token,
-            expired_in: 86200,
-            user: user
-        });
-    });
+    // Organizer.findOne({login: req.body.username, password: req.body.password}, function (err, user) {
+    //     res.json({
+    //         access_token: token,
+    //         expired_in: 86200,
+    //         user: user
+    //     });
+    // });
+    console.log(req.body);
+    console.log(req.body.title);
 });
 
 module.exports = router;
