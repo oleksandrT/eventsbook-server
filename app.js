@@ -48,10 +48,10 @@ app.use(function(req, res, next) {
 //app.use('/', routes);
 //app.use('/users', users);
 
-app.use('/signup', signup);
-app.use('/login', login);
-app.use('/organizers', organizers);
-app.use('/events', events);
+app.use('/api/signup', signup);
+app.use('/api/login', login);
+app.use('/api/organizers', organizers);
+app.use('/api/events', events);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
