@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var Organizer = require('../models/organizer');
+var Event = require('../models/event');
 var jwt = require('jsonwebtoken');
 
 var SECRET_WORD = 'wubuiproj';
@@ -33,12 +33,32 @@ router.post('/', function(req, res, next) {
     //     });
     // });
 
-    var newEvent = JSON.parse(req.body.event);
+    var eventData = JSON.parse(req.body.event);
     var userId = (req.body.userId);
-    console.log(newEvent);
+    console.log(eventData);
     console.log(userId);
 
-    
+    var newEvent = new Event({
+        title: eventData.title,
+        date: eventData.date,
+        location: eventData.location,
+        description: eventData.description,
+        classes: [{
+            time: eventData.classes.time,
+            title: eventData.classes.title,
+            description: eventData.classes.description
+        }],
+        teachers: [{
+            name: eventData.teachers.name,
+            description: eventData.teachers.description
+        }]
+    });
+
+    newEvent.save(function(err, newEvent) {
+        if (err) return console.error(err);
+        //console.dir(newEvent);
+        res.send(200);
+    });
 });
 
 module.exports = router;
