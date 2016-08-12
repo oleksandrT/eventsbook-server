@@ -5,15 +5,15 @@ var jwt = require('jsonwebtoken');
 
 var SECRET_WORD = 'wubuiproj';
 
-router.get('/:login', function(req, res, next) {
-    console.log('get organizer route');
-    Organizer.findOne({login: req.params.login}, function (err, user) {
-        res.json({
-            name: 'Klint',
-            email: 'klint@eastwood.com'
-        });
-    });
-});
+// router.get('/:login', function(req, res, next) {
+//     console.log('get organizer route');
+//     Organizer.findOne({login: req.params.login}, function (err, user) {
+//         res.json({
+//             name: 'Klint',
+//             email: 'klint@eastwood.com'
+//         });
+//     });
+// });
 
 router.get('/', function(req, res, next) {
     res.json({
@@ -32,8 +32,13 @@ router.post('/', function(req, res, next) {
     //         user: user
     //     });
     // });
-    console.log(req.body);
-    console.log(req.body.title);
+
+    var newEvent = JSON.parse(req.body.event);
+    var userId = (req.body.userId);
+    console.log(newEvent);
+    console.log(userId);
+
+    
 });
 
 module.exports = router;
