@@ -35,29 +35,33 @@ router.post('/', function(req, res, next) {
 
     var eventData = JSON.parse(req.body.event);
     var userId = (req.body.userId);
-    console.log(eventData);
-    console.log(userId);
+    console.log('eventData: ', eventData);
+    console.log('eventData time: ', eventData.classes[0].time);
+    // console.log('userId: ', userId);
 
     var newEvent = new Event({
         title: eventData.title,
         date: eventData.date,
         location: eventData.location,
-        description: eventData.description,
-        classes: [{
-            time: eventData.classes.time,
-            title: eventData.classes.title,
-            description: eventData.classes.description
-        }],
-        teachers: [{
-            name: eventData.teachers.name,
-            description: eventData.teachers.description
-        }]
+        description: eventData.description
     });
+
+    eventData.classes.forEach(function (item, i ,arr) {
+        //console.log('classes array item: ', item);
+        newEvent.classes.push(item);
+    });
+
+    eventData.teachers.forEach(function (item, i ,arr) {
+        //console.log('teachers array item: ', item);
+        newEvent.teachers.push(item);
+    });
+
+    eventData.organizer = userId;
 
     newEvent.save(function(err, newEvent) {
         if (err) return console.error(err);
-        //console.dir(newEvent);
-        res.send(200);
+        console.dir(newEvent);
+        res.sendStatus(200);
     });
 });
 
