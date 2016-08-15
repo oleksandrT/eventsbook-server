@@ -21,7 +21,38 @@ router.get('/', function(req, res, next) {
     });
 });
 
+router.get('/list/:id', function(req, res, next) {
+    var root = process.env.THIS_URI || 'http://localhost:3000';
 
+    Event.find({organizer: req.params.id}, function(err, data) {
+        if (err) return next(err);
+        console.log('Request for events of current user');
+        console.log('Requested data: ', data);
+
+        var response = [];
+        data.forEach(function (item, i, arr) {
+            response.push({
+                title: data[i].title,
+                link: root + '/api/events/' + data[i]._id
+            });
+        });
+
+        console.log(response);
+        console.log(root);
+
+        res.json(response);
+    });
+});
+
+router.get('/:id', function(req, res, next) {
+    Event.findOne({_id: req.params.id}, function(err, data) {
+        if (err) return next(err);
+        console.log('Request for events of current user');
+        console.log('Requested data: ', data);
+
+        res.json(data);
+    });
+});
 
 router.post('/', function(req, res, next) {
     console.log('post organizer route');
@@ -35,8 +66,8 @@ router.post('/', function(req, res, next) {
 
     var eventData = JSON.parse(req.body.event);
     var userId = (req.body.userId);
-    console.log('eventData: ', eventData);
-    console.log('eventData time: ', eventData.classes[0].time);
+    // console.log('eventData: ', eventData);
+    // console.log('eventData time: ', eventData.classes[0].time);
     // console.log('userId: ', userId);
 
     var newEvent = new Event({
@@ -56,12 +87,13 @@ router.post('/', function(req, res, next) {
         newEvent.teachers.push(item);
     });
 
-    eventData.organizer = userId;
+    newEvent.organizer = userId;
 
     newEvent.save(function(err, newEvent) {
         if (err) return console.error(err);
-        console.dir(newEvent);
-        res.sendStatus(200);
+        //console.log('newEvent id: ', newEvent._id);
+        // res.sendStatus(200);
+        res.json({eventId: newEvent._id});
     });
 });
 
