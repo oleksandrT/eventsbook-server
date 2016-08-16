@@ -13,6 +13,7 @@ var signup = require('./routes/signup');
 var login = require('./routes/login');
 var organizers = require('./routes/organizers');
 var events = require('./routes/events');
+var participants = require('./routes/participants');
 
 var app = express();
 var db;
@@ -53,6 +54,7 @@ app.use('/api/signup', signup);
 app.use('/api/login', login);
 app.use('/api/organizers', organizers);
 app.use('/api/events', events);
+app.use('/api/participants', participants);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

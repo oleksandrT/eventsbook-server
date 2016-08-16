@@ -64,11 +64,13 @@ router.post('/', function(req, res, next) {
     //     });
     // });
 
+    console.log('req.body: ', req.body);
+
     var eventData = JSON.parse(req.body.event);
     var userId = (req.body.userId);
-    // console.log('eventData: ', eventData);
-    // console.log('eventData time: ', eventData.classes[0].time);
-    // console.log('userId: ', userId);
+    console.log('eventData: ', eventData);
+    console.log('eventData time: ', eventData.classes[0].time);
+    console.log('userId: ', userId);
 
     var newEvent = new Event({
         title: eventData.title,
