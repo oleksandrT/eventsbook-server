@@ -34,9 +34,9 @@ router.get('/list/:id', function(req, res, next) {
         res.json(response);
     });
 });
-
+*/
 router.get('/:id', function(req, res, next) {
-    Event.findOne({_id: req.params.id}, function(err, data) {
+    Participant.find({eventId: req.params.id}, function(err, data) {
         if (err) return next(err);
         console.log('Request for events of current user');
         console.log('Requested data: ', data);
@@ -44,7 +44,7 @@ router.get('/:id', function(req, res, next) {
         res.json(data);
     });
 });
-*/
+
 
 router.post('/', function(req, res, next) {
     console.log('START: participants route, post request');

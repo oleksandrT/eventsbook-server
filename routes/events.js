@@ -33,7 +33,8 @@ router.get('/list/:id', function(req, res, next) {
         data.forEach(function (item, i, arr) {
             response.push({
                 title: data[i].title,
-                link: root + '/api/events/' + data[i]._id
+                // link: root + '/api/events/' + data[i]._id
+                link: '/events/information/' + data[i]._id
             });
         });
 
